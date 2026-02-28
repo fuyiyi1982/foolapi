@@ -21,11 +21,11 @@ func SetWebRouter(router *gin.Engine, buildFS embed.FS) {
 	router.Use(gzip.Gzip(gzip.DefaultCompression))
 	router.Use(middleware.GlobalWebRateLimit())
 	router.Use(middleware.Cache())
-	
+
+	// Serve admin UI at /admin first to avoid being intercepted by root static middleware
+	router.Use(static.Serve("/admin", common.EmbedFolder(buildFS, fmt.Sprintf("web/build/%s", config.Theme))))
 	// Serve user UI at /
 	router.Use(static.Serve("/", common.EmbedFolder(buildFS, "web/build/user")))
-	// Serve admin UI at /admin
-	router.Use(static.Serve("/admin", common.EmbedFolder(buildFS, fmt.Sprintf("web/build/%s", config.Theme))))
 
 	router.NoRoute(func(c *gin.Context) {
 		if strings.HasPrefix(c.Request.RequestURI, "/v1") || strings.HasPrefix(c.Request.RequestURI, "/api") {
