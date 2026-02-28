@@ -4,14 +4,14 @@
 
 
 <p align="center">
-  <a href="https://github.com/songquanpeng/one-api"><img src="https://raw.githubusercontent.com/songquanpeng/one-api/main/web/default/public/logo.png" width="150" height="150" alt="one-api logo"></a>
+  <img src="https://raw.githubusercontent.com/songquanpeng/one-api/main/web/default/public/logo.png" width="150" height="150" alt="FoolAPI logo">
 </p>
 
 <div align="center">
 
-# One API
+# FoolAPI
 
-_✨ 通过标准的 OpenAI API 格式访问所有的大模型，开箱即用 ✨_
+_✨ FoolAPI 是 one-api 的一个修改分支，新增了非管理员用户的门户隔离等特性。通过标准的 OpenAI API 格式访问所有的大模型，开箱即用 ✨_
 
 </div>
 

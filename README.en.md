@@ -3,14 +3,14 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/songquanpeng/one-api"><img src="https://raw.githubusercontent.com/songquanpeng/one-api/main/web/default/public/logo.png" width="150" height="150" alt="one-api logo"></a>
+  <img src="https://raw.githubusercontent.com/songquanpeng/one-api/main/web/default/public/logo.png" width="150" height="150" alt="FoolAPI logo">
 </p>
 
 <div align="center">
 
-# One API
+# FoolAPI
 
-_✨ Access all LLM through the standard OpenAI API format, easy to deploy & use ✨_
+_✨ A modified fork of one-api featuring non-admin portal isolation. Access all LLM through the standard OpenAI API format, easy to deploy & use ✨_
 
 </div>
 
