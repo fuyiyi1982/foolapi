@@ -18,7 +18,7 @@ root.render(
   <React.StrictMode>
     <StatusProvider>
       <UserProvider>
-        <BrowserRouter basename="/admin">
+        <BrowserRouter>
           <Header />
           <Container className={'main-content'}>
             <App />

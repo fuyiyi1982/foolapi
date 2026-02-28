@@ -11,3 +11,11 @@ while IFS= read -r theme; do
     DISABLE_ESLINT_PLUGIN='true' REACT_APP_VERSION=$version npm run build
     cd ..
 done < THEMES
+
+echo "Building user theme"
+rm -r build/user
+cd user
+npm install
+DISABLE_ESLINT_PLUGIN='true' REACT_APP_VERSION=$version npm run build
+cd ..
+
