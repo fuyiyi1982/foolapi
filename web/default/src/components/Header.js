@@ -70,6 +70,7 @@ let headerButtons = [
     name: 'header.about',
     to: '/about',
     icon: 'info circle',
+    admin: true,
   },
 ];
 

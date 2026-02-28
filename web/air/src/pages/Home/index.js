@@ -1,13 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Card, Col, Row } from '@douyinfe/semi-ui';
-import { API, showError, showNotice, timestamp2string } from '../../helpers';
+import { API, showError, showNotice, timestamp2string, isAdmin } from '../../helpers';
 import { StatusContext } from '../../context/Status';
 import { marked } from 'marked';
+import { UserContext } from '../../context/User';
+import { Navigate } from 'react-router-dom';
 
 const Home = () => {
   const [statusState] = useContext(StatusContext);
   const [homePageContentLoaded, setHomePageContentLoaded] = useState(false);
   const [homePageContent, setHomePageContent] = useState('');
+  const user = localStorage.getItem('user');
 
   const displayNotice = async () => {
     const res = await API.get('/api/notice');
@@ -51,6 +54,12 @@ const Home = () => {
     displayNotice().then();
     displayHomePageContent().then();
   }, []);
+
+  // Non-admin logged-in users are redirected to log page (their main view)
+  if (user && !isAdmin()) {
+    return <Navigate to='/token' replace />;
+  }
+
   return (
     <>
       {

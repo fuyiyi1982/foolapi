@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/songquanpeng/one-api/common"
 	"github.com/songquanpeng/one-api/common/config"
 	"github.com/songquanpeng/one-api/common/i18n"
@@ -16,35 +17,46 @@ import (
 )
 
 func GetStatus(c *gin.Context) {
+	// Check if the current user is admin via session
+	session := sessions.Default(c)
+	role := session.Get("role")
+	isAdminUser := role != nil && role.(int) >= model.RoleAdminUser
+
+	data := gin.H{
+		"email_verification":          config.EmailVerificationEnabled,
+		"github_oauth":                config.GitHubOAuthEnabled,
+		"github_client_id":            config.GitHubClientId,
+		"lark_client_id":              config.LarkClientId,
+		"system_name":                 config.SystemName,
+		"logo":                        config.Logo,
+		"footer_html":                 config.Footer,
+		"wechat_qrcode":               config.WeChatAccountQRCodeImageURL,
+		"wechat_login":                config.WeChatAuthEnabled,
+		"server_address":              config.ServerAddress,
+		"turnstile_check":             config.TurnstileCheckEnabled,
+		"turnstile_site_key":          config.TurnstileSiteKey,
+		"top_up_link":                 config.TopUpLink,
+		"chat_link":                   config.ChatLink,
+		"quota_per_unit":              config.QuotaPerUnit,
+		"display_in_currency":         config.DisplayInCurrencyEnabled,
+		"oidc":                        config.OidcEnabled,
+		"oidc_client_id":              config.OidcClientId,
+		"oidc_well_known":             config.OidcWellKnown,
+		"oidc_authorization_endpoint": config.OidcAuthorizationEndpoint,
+		"oidc_token_endpoint":         config.OidcTokenEndpoint,
+		"oidc_userinfo_endpoint":      config.OidcUserinfoEndpoint,
+	}
+
+	// Only expose version and start_time to admin users
+	if isAdminUser {
+		data["version"] = common.Version
+		data["start_time"] = common.StartTime
+	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
 		"message": "",
-		"data": gin.H{
-			"version":                     common.Version,
-			"start_time":                  common.StartTime,
-			"email_verification":          config.EmailVerificationEnabled,
-			"github_oauth":                config.GitHubOAuthEnabled,
-			"github_client_id":            config.GitHubClientId,
-			"lark_client_id":              config.LarkClientId,
-			"system_name":                 config.SystemName,
-			"logo":                        config.Logo,
-			"footer_html":                 config.Footer,
-			"wechat_qrcode":               config.WeChatAccountQRCodeImageURL,
-			"wechat_login":                config.WeChatAuthEnabled,
-			"server_address":              config.ServerAddress,
-			"turnstile_check":             config.TurnstileCheckEnabled,
-			"turnstile_site_key":          config.TurnstileSiteKey,
-			"top_up_link":                 config.TopUpLink,
-			"chat_link":                   config.ChatLink,
-			"quota_per_unit":              config.QuotaPerUnit,
-			"display_in_currency":         config.DisplayInCurrencyEnabled,
-			"oidc":                        config.OidcEnabled,
-			"oidc_client_id":              config.OidcClientId,
-			"oidc_well_known":             config.OidcWellKnown,
-			"oidc_authorization_endpoint": config.OidcAuthorizationEndpoint,
-			"oidc_token_endpoint":         config.OidcTokenEndpoint,
-			"oidc_userinfo_endpoint":      config.OidcUserinfoEndpoint,
-		},
+		"data":    data,
 	})
 	return
 }

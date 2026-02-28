@@ -2,6 +2,7 @@
 import { Link, Container, Box } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { isAdmin } from 'utils/common';
 
 // ==============================|| FOOTER - AUTHENTICATION 2 & 3 ||============================== //
 
@@ -13,7 +14,7 @@ const Footer = () => {
       <Box sx={{ textAlign: 'center' }}>
         {siteInfo.footer_html ? (
           <div className="custom-footer" dangerouslySetInnerHTML={{ __html: siteInfo.footer_html }}></div>
-        ) : (
+        ) : isAdmin() ? (
           <>
             <Link href="https://github.com/songquanpeng/one-api" target="_blank">
               {siteInfo.system_name} {process.env.REACT_APP_VERSION}{' '}
@@ -28,6 +29,8 @@ const Footer = () => {
             </Link>{' '}，源代码遵循
             <Link href="https://opensource.org/licenses/mit-license.php"> MIT 协议</Link>
           </>
+        ) : (
+          <>{siteInfo.system_name}</>
         )}
       </Box>
     </Container>

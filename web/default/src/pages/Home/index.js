@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, Grid, Header } from 'semantic-ui-react';
-import { API, showError, showNotice, timestamp2string } from '../../helpers';
+import { API, showError, showNotice, timestamp2string, isAdmin } from '../../helpers';
 import { StatusContext } from '../../context/Status';
 import { marked } from 'marked';
 import { UserContext } from '../../context/User';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -56,6 +56,11 @@ const Home = () => {
     displayNotice().then();
     displayHomePageContent().then();
   }, []);
+
+  // Non-admin logged-in users are redirected to the dashboard
+  if (userState.user && !isAdmin()) {
+    return <Navigate to='/dashboard' replace />;
+  }
 
   return (
     <>

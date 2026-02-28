@@ -39,7 +39,8 @@ const SiderBar = () => {
       text: '首页',
       itemKey: 'home',
       to: '/',
-      icon: <IconHome />
+      icon: <IconHome />,
+      className: isAdmin() ? 'semi-navigation-item-normal' : 'tableHiddle'
     },
     {
       text: '渠道',

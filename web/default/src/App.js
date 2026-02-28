@@ -3,13 +3,14 @@ import { Route, Routes } from 'react-router-dom';
 import Loading from './components/Loading';
 import User from './pages/User';
 import { PrivateRoute } from './components/PrivateRoute';
+import { AdminRoute } from './components/AdminRoute';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 import NotFound from './pages/NotFound';
 import Setting from './pages/Setting';
 import EditUser from './pages/User/EditUser';
 import AddUser from './pages/User/AddUser';
-import { API, getLogo, getSystemName, showError, showNotice } from './helpers';
+import { API, getLogo, getSystemName, isAdmin, showError, showNotice } from './helpers';
 import PasswordResetForm from './components/PasswordResetForm';
 import GitHubOAuth from './components/GitHubOAuth';
 import PasswordResetConfirm from './components/PasswordResetConfirm';
@@ -60,6 +61,7 @@ function App() {
           localStorage.removeItem('chat_link');
         }
         if (
+          data.version &&
           data.version !== process.env.REACT_APP_VERSION &&
           data.version !== 'v0.0.0' &&
           process.env.REACT_APP_VERSION !== ''
@@ -105,25 +107,29 @@ function App() {
       <Route
         path='/channel'
         element={
-          <PrivateRoute>
+          <AdminRoute>
             <Channel />
-          </PrivateRoute>
+          </AdminRoute>
         }
       />
       <Route
         path='/channel/edit/:id'
         element={
-          <Suspense fallback={<Loading></Loading>}>
-            <EditChannel />
-          </Suspense>
+          <AdminRoute>
+            <Suspense fallback={<Loading></Loading>}>
+              <EditChannel />
+            </Suspense>
+          </AdminRoute>
         }
       />
       <Route
         path='/channel/add'
         element={
-          <Suspense fallback={<Loading></Loading>}>
-            <EditChannel />
-          </Suspense>
+          <AdminRoute>
+            <Suspense fallback={<Loading></Loading>}>
+              <EditChannel />
+            </Suspense>
+          </AdminRoute>
         }
       />
       <Route
@@ -153,57 +159,67 @@ function App() {
       <Route
         path='/redemption'
         element={
-          <PrivateRoute>
+          <AdminRoute>
             <Redemption />
-          </PrivateRoute>
+          </AdminRoute>
         }
       />
       <Route
         path='/redemption/edit/:id'
         element={
-          <Suspense fallback={<Loading></Loading>}>
-            <EditRedemption />
-          </Suspense>
+          <AdminRoute>
+            <Suspense fallback={<Loading></Loading>}>
+              <EditRedemption />
+            </Suspense>
+          </AdminRoute>
         }
       />
       <Route
         path='/redemption/add'
         element={
-          <Suspense fallback={<Loading></Loading>}>
-            <EditRedemption />
-          </Suspense>
+          <AdminRoute>
+            <Suspense fallback={<Loading></Loading>}>
+              <EditRedemption />
+            </Suspense>
+          </AdminRoute>
         }
       />
       <Route
         path='/user'
         element={
-          <PrivateRoute>
+          <AdminRoute>
             <User />
-          </PrivateRoute>
+          </AdminRoute>
         }
       />
       <Route
         path='/user/edit/:id'
         element={
-          <Suspense fallback={<Loading></Loading>}>
-            <EditUser />
-          </Suspense>
+          <AdminRoute>
+            <Suspense fallback={<Loading></Loading>}>
+              <EditUser />
+            </Suspense>
+          </AdminRoute>
         }
       />
       <Route
         path='/user/edit'
         element={
-          <Suspense fallback={<Loading></Loading>}>
-            <EditUser />
-          </Suspense>
+          <AdminRoute>
+            <Suspense fallback={<Loading></Loading>}>
+              <EditUser />
+            </Suspense>
+          </AdminRoute>
         }
       />
       <Route
         path='/user/add'
         element={
-          <Suspense fallback={<Loading></Loading>}>
-            <AddUser />
-          </Suspense>
+          <AdminRoute>
+            <Suspense fallback={<Loading></Loading>}>
+              <AddUser />
+            </Suspense>
+          </AdminRoute>
         }
       />
       <Route
@@ -285,9 +301,11 @@ function App() {
       <Route
         path='/about'
         element={
-          <Suspense fallback={<Loading></Loading>}>
-            <About />
-          </Suspense>
+          <AdminRoute>
+            <Suspense fallback={<Loading></Loading>}>
+              <About />
+            </Suspense>
+          </AdminRoute>
         }
       />
       <Route

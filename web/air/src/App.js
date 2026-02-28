@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Loading from './components/Loading';
 import User from './pages/User';
 import { PrivateRoute } from './components/PrivateRoute';
+import { AdminRoute } from './components/AdminRoute';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 import NotFound from './pages/NotFound';
@@ -69,25 +70,29 @@ function App() {
           <Route
             path="/channel"
             element={
-              <PrivateRoute>
+              <AdminRoute>
                 <Channel />
-              </PrivateRoute>
+              </AdminRoute>
             }
           />
           <Route
             path="/channel/edit/:id"
             element={
-              <Suspense fallback={<Loading></Loading>}>
-                <EditChannel />
-              </Suspense>
+              <AdminRoute>
+                <Suspense fallback={<Loading></Loading>}>
+                  <EditChannel />
+                </Suspense>
+              </AdminRoute>
             }
           />
           <Route
             path="/channel/add"
             element={
-              <Suspense fallback={<Loading></Loading>}>
-                <EditChannel />
-              </Suspense>
+              <AdminRoute>
+                <Suspense fallback={<Loading></Loading>}>
+                  <EditChannel />
+                </Suspense>
+              </AdminRoute>
             }
           />
           <Route
@@ -101,33 +106,37 @@ function App() {
           <Route
             path="/redemption"
             element={
-              <PrivateRoute>
+              <AdminRoute>
                 <Redemption />
-              </PrivateRoute>
+              </AdminRoute>
             }
           />
           <Route
             path="/user"
             element={
-              <PrivateRoute>
+              <AdminRoute>
                 <User />
-              </PrivateRoute>
+              </AdminRoute>
             }
           />
           <Route
             path="/user/edit/:id"
             element={
-              <Suspense fallback={<Loading></Loading>}>
-                <EditUser />
-              </Suspense>
+              <AdminRoute>
+                <Suspense fallback={<Loading></Loading>}>
+                  <EditUser />
+                </Suspense>
+              </AdminRoute>
             }
           />
           <Route
             path="/user/edit"
             element={
-              <Suspense fallback={<Loading></Loading>}>
-                <EditUser />
-              </Suspense>
+              <AdminRoute>
+                <Suspense fallback={<Loading></Loading>}>
+                  <EditUser />
+                </Suspense>
+              </AdminRoute>
             }
           />
           <Route
@@ -217,9 +226,11 @@ function App() {
           <Route
             path="/about"
             element={
-              <Suspense fallback={<Loading></Loading>}>
-                <About />
-              </Suspense>
+              <AdminRoute>
+                <Suspense fallback={<Loading></Loading>}>
+                  <About />
+                </Suspense>
+              </AdminRoute>
             }
           />
           <Route

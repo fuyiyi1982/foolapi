@@ -3,6 +3,7 @@ import { lazy } from 'react';
 // project imports
 import Loadable from 'ui-component/Loadable';
 import MinimalLayout from 'layout/MinimalLayout';
+import AdminRoute from 'ui-component/AdminRoute';
 
 // login option 3 routing
 const AuthLogin = Loadable(lazy(() => import('views/Authentication/Auth/Login')));
@@ -28,7 +29,7 @@ const OtherRoutes = {
     },
     {
       path: '/about',
-      element: <About />
+      element: <AdminRoute><About /></AdminRoute>
     },
     {
       path: '/login',

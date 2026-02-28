@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/User';
 
-import { API, getLogo, getSystemName, showSuccess } from '../helpers';
+import { API, getLogo, getSystemName, isAdmin, showSuccess } from '../helpers';
 import '../index.css';
 
 import fireworks from 'react-fireworks';
@@ -124,7 +124,7 @@ const HeaderBar = () => {
                     <Nav.Item itemKey={'new-year'} text={'🏮'} />
                   </Dropdown>
                 }
-                <Nav.Item itemKey={'about'} icon={<IconHelpCircle />} />
+                <Nav.Item itemKey={'about'} icon={<IconHelpCircle />} style={{ display: isAdmin() ? undefined : 'none' }} />
                 <Switch checkedText="🌞" size={'large'} checked={dark} uncheckedText="🌙" onChange={switchMode} />
                 {userState.user ?
                   <>

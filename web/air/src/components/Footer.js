@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Container, Segment } from 'semantic-ui-react';
-import { getFooterHTML, getSystemName } from '../helpers';
+import { getFooterHTML, getSystemName, isAdmin } from '../helpers';
 
 const Footer = () => {
   const systemName = getSystemName();
@@ -35,7 +35,7 @@ const Footer = () => {
             className='custom-footer'
             dangerouslySetInnerHTML={{ __html: footer }}
           ></div>
-        ) : (
+        ) : isAdmin() ? (
           <div className='custom-footer'>
             <a
               href='https://github.com/songquanpeng/one-api'
@@ -54,6 +54,10 @@ const Footer = () => {
             <a href='https://opensource.org/licenses/mit-license.php'>
               MIT 协议
             </a>
+          </div>
+        ) : (
+          <div className='custom-footer'>
+            {systemName}
           </div>
         )}
       </Container>

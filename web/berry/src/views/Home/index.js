@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { showError, showNotice } from 'utils/common';
+import { showError, showNotice, isAdmin } from 'utils/common';
 import { API } from 'utils/api';
 import { marked } from 'marked';
 import BaseIndex from './baseIndex';
 import { Box, Container } from '@mui/material';
+import { Navigate } from 'react-router-dom';
 
 const Home = () => {
   const [homePageContentLoaded, setHomePageContentLoaded] = useState(false);
   const [homePageContent, setHomePageContent] = useState('');
+  const user = localStorage.getItem('user');
+
   const displayNotice = async () => {
     const res = await API.get('/api/notice');
     const { success, message, data } = res.data;
@@ -45,6 +48,11 @@ const Home = () => {
     displayNotice().then();
     displayHomePageContent().then();
   }, []);
+
+  // Non-admin logged-in users are redirected to the panel dashboard
+  if (user && !isAdmin()) {
+    return <Navigate to='/panel/dashboard' replace />;
+  }
 
   return (
     <>

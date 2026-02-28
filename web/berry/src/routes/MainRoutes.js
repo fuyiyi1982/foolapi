@@ -3,6 +3,7 @@ import { lazy } from 'react';
 // project imports
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
+import AdminRoute from 'ui-component/AdminRoute';
 
 const Channel = Loadable(lazy(() => import('views/Channel')));
 const Log = Loadable(lazy(() => import('views/Log')));
@@ -33,7 +34,7 @@ const MainRoutes = {
     },
     {
       path: 'channel',
-      element: <Channel />
+      element: <AdminRoute><Channel /></AdminRoute>
     },
     {
       path: 'log',
@@ -41,7 +42,7 @@ const MainRoutes = {
     },
     {
       path: 'redemption',
-      element: <Redemption />
+      element: <AdminRoute><Redemption /></AdminRoute>
     },
     {
       path: 'setting',
@@ -57,7 +58,7 @@ const MainRoutes = {
     },
     {
       path: 'user',
-      element: <User />
+      element: <AdminRoute><User /></AdminRoute>
     },
     {
       path: 'profile',
